@@ -28,7 +28,7 @@ export const Articles: CollectionConfig = {
       required: true,
     },
     {
-      name: 'content_summary',
+      name: 'contentSummary',
       type: 'textarea',
       required: true,
       hooks: {

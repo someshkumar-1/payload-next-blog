@@ -1,21 +1,42 @@
+import { getArticles } from '@/collections/Articles/fetchers'
 import { ArticleCard } from './_components/article-card'
 
+function relationIsObject<T>(relation: number | T): relation is T {
+  return typeof relation !== 'number'
+}
+
 export default async function BlogIndexPage() {
+  const articles = await getArticles()
+
+  if (!articles.length) {
+    return <p>No articles found</p>
+  }
+
   return (
     <div className="grid grid-cols-3 gap-4 w-full">
-      <ArticleCard
-        href="/blog/how-to-create-a-blog-with-nextjs-13"
-        title="How to create a blog with Next.js 13"
-        summary="Learn how to create a blog with Next.js 13, the latest version of the popular React framework. This tutorial will guide you through the process of setting up a blog, creating posts, and deploying your site."
-        coverImage="https://via.assets.so/img.jpg?w=600&h=300&bg=6b7280&f=png"
-        publishedAt={new Date('2026-01-01T10:00:00Z')}
-        readTimeMins={5}
-        author={{
-          avatar: 'https://via.assets.so/img.jpg?w=40&h=40&bg=6b7280&f=png',
-          name: 'John Doe',
-          role: 'Author',
-        }}
-      />
+      {articles.map(
+        ({ id, title, slug, contentSummary, coverImage, publishedAt, readTimeInMins, author }) => {
+          if (!relationIsObject(coverImage)) return null
+          if (!relationIsObject(author) || !relationIsObject(author.avatar)) return null
+
+          return (
+            <ArticleCard
+              key={id}
+              href={`/blog/${slug}`}
+              title={title}
+              summary={contentSummary}
+              coverImage={coverImage}
+              publishedAt={new Date(publishedAt ?? new Date())}
+              readTimeMins={readTimeInMins ?? 0}
+              author={{
+                avatar: author.avatar,
+                name: author.name,
+                role: author.role,
+              }}
+            />
+          )
+        },
+      )}
     </div>
   )
 }

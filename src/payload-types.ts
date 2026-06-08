@@ -189,7 +189,7 @@ export interface Article {
     };
     [k: string]: unknown;
   };
-  content_summary: string;
+  contentSummary: string;
   readTimeInMins?: number | null;
   coverImage: number | Media;
   author: number | ArticleAuthor;
@@ -341,7 +341,7 @@ export interface ArticlesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   content?: T;
-  content_summary?: T;
+  contentSummary?: T;
   readTimeInMins?: T;
   coverImage?: T;
   author?: T;
