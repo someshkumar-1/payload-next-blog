@@ -14,7 +14,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider>
+        <ThemeProvider defaultTheme="dark">
           <main>{children}</main>
         </ThemeProvider>
       </body>

@@ -1,7 +1,6 @@
 import { Payload } from 'payload'
 import { faker } from '@faker-js/faker'
 import { ARTICLE_AUTHOR_ROLE_OPTIONS } from '@/collections/ArticleAuthors/constants'
-import { tr } from 'zod/locales'
 import { createMediaFromImageUrl } from '../lib/create-media-from-image-url'
 
 export async function seedArticleAuthor(payload: Payload) {
