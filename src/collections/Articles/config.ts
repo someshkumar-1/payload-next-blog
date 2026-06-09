@@ -3,6 +3,8 @@ import { gnerateSlugHook } from './hooks/generate-slug.hook'
 
 import { generateContentSummaryHook } from './hooks/genrate-content-summary.hook'
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext'
+import { revalidateTag } from 'next/cache'
+import { CACHE_TAG_ARTICLES } from './constants'
 
 export const Articles: CollectionConfig = {
   slug: 'articles',
@@ -88,4 +90,7 @@ export const Articles: CollectionConfig = {
       },
     },
   ],
+  hooks: {
+    afterChange: [() => revalidateTag(CACHE_TAG_ARTICLES, '')],
+  },
 }
