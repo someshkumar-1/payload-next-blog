@@ -31,3 +31,18 @@ export function getPublishedArticles() {
     tags: [CACHE_TAG_ARTICLES],
   })()
 }
+
+export async function getArticleBySlug(slug: string) {
+  const payload = await getPayloadClient()
+  try {
+    const article = await payload.find({
+      collection: 'articles',
+      where: { slug: { equals: slug } },
+      limit: 1,
+    })
+    return article.docs[0] ?? null
+  } catch (error) {
+    console.error('Failed to fetch article', error)
+    return null
+  }
+}
